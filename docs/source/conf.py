@@ -35,7 +35,7 @@ html_theme_options = {
     'font_family': 'Noto Sans',
     'head_font_family': 'Noto Sans',
     'page_width': '1280px',
-    'sidebar_width': '300px',
+    'sidebar_width': '350px',
 }
 
 dunderlab_color_links = '#FC4DB5'

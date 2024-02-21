@@ -32,18 +32,18 @@ jobs:
 
           # Sets up initial documentation if a 'docs' directory does not exist
           if [ ! -d "docs" ]; then
-              dunderlab_docs quickstart '--project "${{ vars.PROJECT_NAME }}" --author "${{ vars.AUTHOR }}" --extensions nbsphinx,dunderlab.docs --no-batchfile --quiet --sep'
+              dunderlab_docs quickstart '--project "${{ vars.DOCS_PROJECT_NAME }}" --author "${{ vars.DOCS_AUTHOR }}" --extensions nbsphinx,dunderlab.docs --no-batchfile --quiet --sep'
           fi
 
           # Generates API documentation and builds HTML and Latex PDF if SUBMODULE is set
-          if [ -n "${{ vars.SUBMODULE }}" ]; then
-            dunderlab_docs apidoc "${{ vars.MODULE }}"
-            dunderlab_docs build html "${{ vars.MODULE }}/${{ vars.SUBMODULE }}"
-            dunderlab_docs build latexpdf "${{ vars.MODULE }}/${{ vars.SUBMODULE }}"
+          if [ -n "${{ vars.DOCS_SUBMODULE }}" ]; then
+            dunderlab_docs apidoc "${{ vars.DOCS_MODULE }}"
+            dunderlab_docs build html "${{ vars.DOCS_MODULE }}/${{ vars.DOCS_SUBMODULE }}"
+            dunderlab_docs build latexpdf "${{ vars.DOCS_MODULE }}/${{ vars.DOCS_SUBMODULE }}"
           else
-            dunderlab_docs apidoc "${{ vars.MODULE }}"
-            dunderlab_docs build html "${{ vars.MODULE }}"
-            dunderlab_docs build latexpdf "${{ vars.MODULE }}"
+            dunderlab_docs apidoc "${{ vars.DOCS_MODULE }}"
+            dunderlab_docs build html "${{ vars.DOCS_MODULE }}"
+            dunderlab_docs build latexpdf "${{ vars.DOCS_MODULE }}"
           fi
 
           # Adds a configuration file for Read the Docs

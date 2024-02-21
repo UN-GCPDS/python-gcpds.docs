@@ -15,7 +15,8 @@ Documentation Overview
    notebooks/03-github_pat
    notebooks/04-readthedocs
    notebooks/05-github_and_readthedocs
-   notebooks/06-repository_structure_setup
+   notebooks/06-repository_structure_setup_pro
+   notebooks/07-repository_structure_setup_lazy
 
 
 

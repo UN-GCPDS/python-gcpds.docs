@@ -33,13 +33,13 @@ jobs:
           os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
           setup(
-              name=\"${{ vars.MODULE }}\",
+              name=\"${{ vars.DOCS_MODULE }}\",
               version='0.1',
-              packages=[\"${{ vars.MODULE }}\"],
-              author=\"${{ vars.AUTHOR }}\",
-              author_email=\"${{ vars.EMAIL }}\",
-              maintainer=\"${{ vars.AUTHOR }}\",
-              maintainer_email=\"${{ vars.EMAIL }}\",
+              packages=[\"${{ vars.DOCS_MODULE }}\"],
+              author=\"${{ vars.DOCS_AUTHOR }}\",
+              author_email=\"${{ vars.DOCS_EMAIL }}\",
+              maintainer=\"${{ vars.DOCS_AUTHOR }}\",
+              maintainer_email=\"${{ vars.DOCS_EMAIL }}\",
               download_url='',
               install_requires=[
               ],
