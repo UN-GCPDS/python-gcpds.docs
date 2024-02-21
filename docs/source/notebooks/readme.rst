@@ -28,31 +28,6 @@ guidelines, the GCPDS community can contribute to a robust and
 sustainable ecosystem for research and development in computational
 perception and decision systems.
 
-Installation Instructions
--------------------------
-
-To integrate the ``gcpds.docs`` module into your Python environment, the
-process is straightforward and managed via ``pip``, Python’s package
-installer. Ensure that you have ``pip`` installed and that it is up to
-date to avoid any compatibility issues. Follow the command below to
-install the latest version of ``gcpds.docs``:
-
-.. code:: ipython3
-
-    pip install -U gcpds.docs
-
-This command will download and install the ``gcpds.docs`` module along
-with its dependencies. The ``-U`` flag ensures that if the package is
-already installed, it will be upgraded to the latest version.
-
-After the installation is complete, you can import and use
-``gcpds.docs`` in your Python projects to enhance your documentation
-process.
-
-**Note:** It is recommended to perform this installation within a
-virtual environment to maintain a clean workspace and avoid version
-conflicts with other projects.
-
 Introduction to Setting Up and Integrating a Python Module Repository
 ---------------------------------------------------------------------
 

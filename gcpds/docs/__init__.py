@@ -419,11 +419,13 @@ def __lab__() -> widgets.GridspecLayout:
             lab.github_button_layout,
         ])
 
-    layouts.extend([
-        lab.webhooks_title,
-        lab.right_button_layout,
-        lab.logger,
-    ])
+    if hasattr(lab, 'webhooks_title'):
+        layouts.append(lab.webhooks_title)
+
+    if hasattr(lab, 'right_button_layout'):
+        layouts.append(lab.right_button_layout)
+
+    layouts.append(lab.logger)
 
     # Apply CSS styles to the logger
     display(HTML(

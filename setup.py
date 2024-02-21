@@ -9,13 +9,15 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 setup(
     name="gcpds",
     version='0.1',
-    packages=["gcpds"],
+    packages=["gcpds", "gcpds.docs"],
     author="Yeison Cardona",
     author_email="yencardonaal@unal.edu.co",
     maintainer="Yeison Cardona",
     maintainer_email="yencardonaal@unal.edu.co",
     download_url='',
     install_requires=[
+        'ipywidgets',
+        'ipython_secrets',
     ],
     scripts=[
     ],
@@ -27,8 +29,8 @@ setup(
     long_description_content_type='text/markdown',
     python_requires='>=3.7',
 
-    #https://pypi.org/classifiers/
+    # https://pypi.org/classifiers/
     classifiers=[
     ],
 )
-  
+
