@@ -8,7 +8,7 @@ on:
   push:               # Triggers the workflow on every push to the repository
 
 jobs:
-  format-code-customized:
+  format-sphinx-customized:
     runs-on: ubuntu-latest  # Specifies the virtual machine to use, in this case, the latest version of Ubuntu
 
     # Defines permissions for this job
