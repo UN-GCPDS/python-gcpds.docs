@@ -1,22 +1,12 @@
 # GCPDS - Documentation Guide
 
-<<<<<<< HEAD
-Welcome to the "GCPDS - Documentation Guide". This guide serves as a comprehensive resource for setting up, configuring, and maintaining the documentation of projects under the **Grupo de Control y Procesamiento Digital de Señales ([GCPDS](https://github.com/UN-GCPDS))** initiative. Our goal is to standardize the process of documentation across various modules and projects to enhance clarity, accessibility, and ease of use.
-=======
 Welcome to the "GCPDS - Documentation Guide", a comprehensive manual for establishing, configuring, and sustaining project documentation within the **Grupo de Control y Procesamiento Digital de Señales ([GCPDS](https://github.com/UN-GCPDS))** initiative. Our objective is to unify documentation practices across various modules and projects, thereby enhancing clarity, accessibility, and practicality.
->>>>>>> 5692192 (Update)
 
 This guide delineates a sequence of steps and best practices aimed at facilitating the seamless integration of Python modules with version control and automated documentation systems. Adherence to these guidelines is crucial for maintaining exemplary code management and documentation standards, which are essential for collaborative development and the enduring success of our projects.
 
-<<<<<<< HEAD
-We cover everything from the initial setup of a GitHub repository, including naming conventions and configuration, to the integration with [Read the Docs](https://readthedocs.org/) for automated documentation generation. Additionally, we discuss security practices, such as handling sensitive data through repository secrets and access tokens, to ensure the integrity and confidentiality of the project.
-
-Each section of this guide is designed to walk you through the necessary steps to achieve an efficient and secure workflow. By adhering to these guidelines, the GCPDS community can contribute to a robust and sustainable ecosystem for research and development in digital signal processing and control. For more Python modules, visit [PyPi](https://pypi.org/search/?q=GCPDS).
-=======
 Key topics include the initial setup of a GitHub repository, encompassing naming conventions and configuration, and extending to automated documentation generation via [Read the Docs](https://readthedocs.org/). The guide also addresses security protocols, focusing on safeguarding sensitive data with repository secrets and access tokens to preserve the integrity and confidentiality of our projects.
 
 Each section is meticulously crafted to guide you through the steps necessary for achieving an efficient and secure workflow. By following these guidelines, the GCPDS community will significantly contribute to a resilient and enduring research and development ecosystem in digital signal processing and control. Explore additional Python modules on [PyPi](https://pypi.org/search/?q=GCPDS).
->>>>>>> 5692192 (Update)
 
 ## Introduction to Setting Up and Integrating a Python Module Repository
 
