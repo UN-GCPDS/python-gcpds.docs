@@ -2,23 +2,57 @@
 .. include:: notebooks/readme.rst
 
 
-Documentation Overview
-======================
-        
 
 .. toctree::
    :maxdepth: 2
    :name: mastertoc
 
-   notebooks/01-github
-   notebooks/02-github_secrets
-   notebooks/03-github_pat
-   notebooks/04-readthedocs
-   notebooks/05-github_and_readthedocs
-   notebooks/06-repository_structure_setup_pro
-   notebooks/07-repository_structure_setup_lazy
+   
 
 
+
+Documentation Overview
+======================
+
+This guide offers a comprehensive framework for documenting Python projects
+within the GCPDS initiative, covering everything from initial setup and
+configuration to best practices in code implementation.
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+   :name: mastertoc3
+   :caption: Setting Up the Development Environment
+
+   notebooks/01_set_up/*
+
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+   :name: mastertoc3
+   :caption: Repository Structure Setup
+
+   notebooks/02_repository_structure/*
+
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+   :name: mastertoc3
+   :caption: Writing Your Python Module
+
+   notebooks/03_python_module/*
+
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+   :name: mastertoc3
+   :caption: Best Practices for Code Implementation
+
+   notebooks/04_best_practices/*
+    
 
 
 .. only:: html

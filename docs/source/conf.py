@@ -50,22 +50,48 @@ autodoc_mock_imports = ["ipywidgets", "IPython", "ipython_secrets"]
 # add_module_names = False
 
 dunderlab_custom_index = f"""
+
+Documentation Overview
+======================
+
+This guide offers a comprehensive framework for documenting Python projects
+within the GCPDS initiative, covering everything from initial setup and
+configuration to best practices in code implementation.
+
 .. toctree::
    :glob:
    :maxdepth: 2
    :name: mastertoc3
-   :caption: Submodule 1
+   :caption: Setting Up the Development Environment
 
-   notebooks/set_up/*
+   notebooks/01_set_up/*
 
 
 .. toctree::
    :glob:
    :maxdepth: 2
    :name: mastertoc3
-   :caption: Submodule 2
+   :caption: Repository Structure Setup
 
-   notebooks/best_practices/*
+   notebooks/02_repository_structure/*
+
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+   :name: mastertoc3
+   :caption: Writing Your Python Module
+
+   notebooks/03_python_module/*
+
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+   :name: mastertoc3
+   :caption: Best Practices for Code Implementation
+
+   notebooks/04_best_practices/*
     """
 
 
