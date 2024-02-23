@@ -24,7 +24,7 @@ extensions = [
 ]
 
 templates_path = ['_templates']
-exclude_patterns = []
+exclude_patterns = ['_build', '**.ipynb_checkpoints']
 
 html_logo = '_static/logo.svg'
 html_favicon = '_static/favicon.ico'
@@ -46,5 +46,5 @@ html_theme_options = {
 dunderlab_color_links = '#FC4DB5'
 dunderlab_code_reference = True
 
-autodoc_mock_imports = ["docs", "setup"]
-exclude_patterns = ['_build', '**.ipynb_checkpoints']
+autodoc_mock_imports = ["ipywidgets", "IPython", "ipython_secrets"]
+# add_module_names = False

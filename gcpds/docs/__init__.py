@@ -3,17 +3,25 @@
 GitHub Integration and Workflow Management with Jupyter and ipywidgets
 ======================================================================
 
-This module provides a user-friendly graphical interface in Jupyter notebooks for managing GitHub repositories. It uses
-ipywidgets to create an interactive environment for seamless integration with GitHub. The functionalities include cloning,
-committing, pulling, pushing, and checking the status of the repositories, along with managing GitHub Actions workflows.
+This module provides a graphical interface within Jupyter notebooks for managing GitHub
+repositories, streamlining the use of ipywidgets for interactive GitHub integration.
+Primary functions include repository cloning, changes committing, updates pulling, commits
+pushing, and repository status checking, complemented by GitHub Actions workflow management.
 
 Subsections
 -----------
-- Widgets: Custom ipywidgets classes for text validation, buttons, and command layout interfaces.
-- GitHubLazy: Core class with methods to interact with GitHub repositories and manage workflows.
-- Interface Layout: Helper function to create and display the ipywidgets interface layout.
+- Widgets:
+    Custom ipywidgets classes enhancing text input with validation capabilities and providing
+    styled interactive buttons and command layouts.
+- GitHubLazy:
+    The central class furnishing methods for interacting with GitHub repositories and
+    orchestrating workflows.
+- Interface Layout:
+    A utility function to assemble and present the ipywidgets interface within a Jupyter
+    notebook environment.
 
 """
+
 
 import os
 import sys
@@ -42,24 +50,45 @@ CURRENT_DIR = Path(__file__).parent
 
 ########################################################################
 class ValidateText(widgets.Text):
-    """
-    A custom widget class that extends ipywidgets.Text to include validation functionality.
+    """Custom widget class extending ipywidgets.Text to provide validation.
 
-    Attributes:
-        button (widgets.Button): A button widget that changes based on the validation.
+    This widget augments the textual input with validation, altering an associated button's style to reflect validity status.
 
-    Methods:
-        _update_style(change): Updates the button style based on validation conditions.
+    Parameters
+    ----------
+    **kwargs : dict
+        Additional keyword arguments to configure the widget.
+
+    Attributes
+    ----------
+    validate : bool
+        Indicates whether the validation mechanism is active.
+    button : widgets.Button
+        Button whose style changes based on the validation status.
+
+    Methods
+    -------
+    _update_style(change)
+        Updates the button's style dependent on the validity of the input text.
+
+        Parameters
+        ----------
+        change : dict
+            Information about the change, including 'type', 'name', 'old', and 'new'.
+
     """
 
     # ----------------------------------------------------------------------
     def __init__(self, **kwargs):
-        """
-        Initialize the ValidateText widget.
+        """Initialize the ValidateText widget.
 
-        Args:
-            validate (bool): A flag to activate validation.
-            button (widgets.Button): A button widget linked to this text widget.
+        Parameters
+        ----------
+        validate : bool, optional
+            A flag to activate validation. Default is False.
+        button : widgets.Button, optional
+            A button widget linked to this text widget. Default is None.
+
         """
         super().__init__(**kwargs)
         self.validate: bool = kwargs.get('validate', False)
@@ -70,11 +99,18 @@ class ValidateText(widgets.Text):
 
     # ----------------------------------------------------------------------
     def _update_style(self, change: dict) -> None:
-        """
-        Update the style of the associated button based on the validation condition.
+        """Update the style of the associated button based on the validation condition.
 
-        Args:
-            change (dict): A dictionary containing the change details.
+        Parameters
+        ----------
+        change : dict
+            A dictionary containing the details of the change event. This includes keys
+            such as 'type', 'name', 'old', and 'new' corresponding to the change event properties.
+
+        Returns
+        -------
+        None
+
         """
         new_value = change['new']
         cond = bool(new_value) if self.validate is True else new_value.startswith(
@@ -86,20 +122,41 @@ class ValidateText(widgets.Text):
 
 ########################################################################
 class CustomButton(widgets.Button):
-    """
-    A custom button widget with predefined layout and optional callback functionality.
+    """A custom button widget with a predefined layout and optional callback functionality.
 
-    Methods:
-        __init__(callback): Initializes the custom button with a callback function.
+    Parameters
+    ----------
+    callback : Optional[Callable], optional
+        The function to be called when the button is clicked. Defaults to None.
+
+    Attributes
+    ----------
+    layout : widgets.Layout
+        The layout configuration for the button widget.
+
+    Methods
+    -------
+    __init__(callback: Optional[Callable] = None, **kwargs)
+        Constructs a CustomButton instance.
+
+    Notes
+    -----
+    The CustomButton can be linked to a specific functionality through the callback, which triggers upon a button click event.
+
     """
 
     # ----------------------------------------------------------------------
     def __init__(self, callback: Optional[Callable] = None, **kwargs):
-        """
-        Initialize the CustomButton widget.
+        """Construct a CustomButton instance.
 
-        Args:
-            callback (Callable, optional): The function to call when the button is clicked.
+        Parameters
+        ----------
+        callback : Optional[Callable], optional
+            The function to be invoked when the button is clicked.
+            If not provided, no function will be called. Default is None.
+        **kwargs : dict, optional
+            Additional keyword arguments to pass to the base Button class.
+
         """
         super().__init__(**kwargs)
         self.layout = widgets.Layout(
@@ -111,27 +168,64 @@ class CustomButton(widgets.Button):
 
 ########################################################################
 class CommandLayout:
-    """
-    A layout class combining a text widget with a custom button for command inputs.
+    """A layout class that combines a text widget with a custom button for command inputs.
 
-    Methods:
-        __init__(description, button, callback, placeholder, validate): Initializes the command layout.
-        layout: Returns the widget layout.
-        text: Gets or sets the text value of the text widget.
+    Parameters
+    ----------
+    description : str
+        The description for the text widget.
+    button : str
+        The label for the button.
+    callback : Optional[Callable], optional
+        The function to call when the button is clicked, by default None.
+    placeholder : str, optional
+        Placeholder text for the text widget, by default ''.
+    validate : bool, optional
+        Whether to enable validation on the text widget, by default False.
+    tooltip : str, optional
+        Tooltip text for the text widget, by default ''.
+
+    Attributes
+    ----------
+    button : CustomButton
+        The custom button associated with the command layout.
+    validate_text : ValidateText
+        The ValidateText widget used for command input.
+
+    Methods
+    -------
+    layout() -> widgets.AppLayout
+        Returns the widget layout for the command layout, combining the text widget and the button.
+    text() -> str
+        Gets the current text value of the text widget.
+    text(value: str)
+        Sets the text value of the text widget.
+
     """
 
     # ----------------------------------------------------------------------
     def __init__(self, description: str, button: str, callback: Optional[Callable] = None,
                  placeholder: str = '', validate: bool = False, tooltip: str = ''):
-        """
-        Initialize the CommandLayout with a text widget and a button.
+        """Construct a `CommandLayout` instance with integrated text validation and command execution.
 
-        Args:
-            description (str): The description for the text widget.
-            button (str): The label for the button.
-            callback (Callable, optional): The function to call when the button is clicked.
-            placeholder (str): Placeholder text for the text widget.
-            validate (bool): Whether to enable validation on the text widget.
+        Parameters
+        ----------
+        description : str
+            A descriptive label for the text input field.
+        button : str
+            The text to display on the action button.
+        callback : Optional[Callable], optional
+            The callback function to invoke when the action button is clicked. Default is None.
+        placeholder : str, optional
+            The placeholder text for the text input when it is empty. Default is an empty string.
+        validate : bool, optional
+            A flag to indicate if validation should be applied to the text input. Default is False.
+        tooltip : str, optional
+            A short text to help the user understand what the text input and button are for. Default is an empty string.
+
+        Returns
+        -------
+        None
         """
         self.button = CustomButton(
             description=button, button_style='danger', disabled=True, tooltip=tooltip)
@@ -150,43 +244,82 @@ class CommandLayout:
     # ----------------------------------------------------------------------
     @property
     def layout(self) -> widgets.AppLayout:
-        """
-        Get the widget layout for the command layout.
+        """Construct the widget layout for the command layout.
 
-        Returns:
-            widgets.AppLayout: The layout combining the text widget and the button.
+        Returns
+        -------
+        widgets.AppLayout
+            The layout combining the text widget and the button.
         """
+
         return widgets.AppLayout(center=self.validate_text, right_sidebar=self.button)
 
     # ----------------------------------------------------------------------
     @property
     def text(self) -> str:
-        """
-        Get the current text value of the text widget.
+        """Get the current text value of the text widget.
 
-        Returns:
-            str: The current text value.
+        Returns
+        -------
+        str
+            The current text value of the text widget.
         """
         return self.validate_text.value
 
     # ----------------------------------------------------------------------
     @text.setter
     def text(self, value: str) -> None:
-        """
-        Set the text value of the text widget.
+        """Set the text value of the text widget.
 
-        Args:
-            value (str): The text value to set.
+        Parameters
+        ----------
+        value : str
+            The text value to set.
         """
         self.validate_text.value = value
 
 
 ########################################################################
 class GitHubLazy:
-    """
-    A class for managing GitHub operations within a Jupyter notebook environment using ipywidgets.
+    """Handles GitHub operations within a Jupyter notebook using ipywidgets.
 
-    This class provides functionalities to clone, commit, pull, push, and check the status of a GitHub repository.
+    This class allows for common GitHub operations such as cloning a repository,
+    committing changes, pulling updates, pushing commits, and checking statuses—all
+    through an interactive IPython widget interface.
+
+    Attributes
+    ----------
+    GITHUB_PAT : Optional[str]
+        A GitHub Personal Access Token for authentication, retrieved from secrets.
+    GITHUB_NAME : Optional[str]
+        The GitHub username associated with the token, retrieved from secrets.
+    GITHUB_EMAIL : Optional[str]
+        The email address associated with the GitHub account, retrieved from secrets.
+    logger : widgets.Label
+        A widget label for logging output within the Jupyter notebook.
+
+    Methods
+    -------
+    __init__()
+        Initializes the GitHubLazy object with all necessary widgets and configuration.
+
+    Raises
+    ------
+    Exception
+        If a required secret (like GITHUB_PAT) is not set or if an operation fails.
+
+    Notes
+    -----
+    It is necessary to set the GitHub personal access token (GITHUB_PAT), username (GITHUB_NAME),
+    and email (GITHUB_EMAIL) as secrets prior to using this class for GitHub operations.
+
+    Examples
+    --------
+    >>> github = GitHubLazy()
+    >>> github.clone_repository('https://github.com/user/repo.git')
+    Cloning into 'repo'...
+    >>> github.commit_changes('Initial commit')
+    [main (root-commit) 1a2b3c4] Initial commit
     """
 
     GITHUB_PAT: Optional[str] = get_secret('GITHUB_PAT')
@@ -199,7 +332,14 @@ class GitHubLazy:
 
     # ----------------------------------------------------------------------
     def __init__(self):
-        """Initializes the GitHubLazy interface with necessary widgets and configurations."""
+        """Initialize the GitHubLazy object with all necessary widgets and configuration.
+
+        Raises
+        ------
+        Exception
+            If a required secret (like GITHUB_PAT) is not set or if an operation fails.
+
+        """
 
         self.github_title = widgets.Label(
             "GitHub Integration for Jupyter: Simplified Management")
@@ -257,14 +397,19 @@ class GitHubLazy:
 
     # ----------------------------------------------------------------------
     def run_command(self, command: str, path: str = '.', silent: bool = True) -> None:
-        """
-        Executes a given shell command in the specified directory path.
+        """Execute a given shell command in the specified directory path.
 
-        Args:
-            command (str): The shell command to execute.
-            path (str): The directory path where the command is to be executed.
-            silent (bool): If True, suppresses the logging output.
+        Parameters
+        ----------
+        command : str
+            The shell command to execute.
+        path : str, optional
+            The directory path where the command is to be executed. Default is the current directory.
+        silent : bool, optional
+            If True, suppresses the logging output. Default is True.
+
         """
+
         original_dir = os.getcwd()
         os.chdir(path)
 
@@ -286,15 +431,30 @@ class GitHubLazy:
 
     # ----------------------------------------------------------------------
     def clone(self, evt: Optional[widgets.Button] = None) -> None:
-        """
-        Clones a GitHub repository based on the URL provided in the clone_layout text widget.
+        """Clone a GitHub repository.
+
+        This method is designed to clone a GitHub repository using the repository URL provided through
+        the clone_layout text widget interface.
 
         Parameters
         ----------
         evt : Optional[widgets.Button], optional
-            The button event that triggers this method (default is None).
+            The button event that triggers the cloning process. If no event is provided, the method
+            can be called programmatically without any event context. Default is None.
+
+        Raises
+        ------
+        subprocess.CalledProcessError
+            If the cloning process encounters an error.
+
+        Examples
+        --------
+        >>> github = GitHubLazy()
+        >>> github.clone(None)
+        # Assume the URL is already provided through the interface; this will start the cloning process.
 
         """
+
         repository_url = self.clone_layout.text.removeprefix('https://')
         self.run_command(
             f"git clone https://{self.GITHUB_PAT}@{repository_url} my_repository", path=WORKING_PATH)
@@ -305,15 +465,30 @@ class GitHubLazy:
 
     # ----------------------------------------------------------------------
     def commit(self, evt: Optional[widgets.Button] = None) -> None:
-        """
-        Commits changes to the local repository with the message provided in the commit_layout text widget.
+        """Commit changes to the local repository with a message.
+
+        The commit message is provided through the commit_layout's text widget.
+        This allows users to specify what changes they're committing.
 
         Parameters
         ----------
         evt : Optional[widgets.Button], optional
-            The button event that triggers this method (default is None).
+            The event associated with the commit button that, when triggered,
+            calls this method. If `None`, the method can be called without
+            an event, allowing for programmatic commits (default is None).
+
+        Raises
+        ------
+        subprocess.CalledProcessError
+            If the commit process fails due to underlying issues with the Git command.
+
+        Examples
+        --------
+        >>> github_lazy = GitHubLazy()
+        >>> github_lazy.commit(None)  # This assumes that the commit message is pre-set.
 
         """
+
         self.run_command("git add .", path=REPOSITORY_PATH)
         self.run_command("git add -f .github", path=REPOSITORY_PATH)
         self.run_command(
@@ -322,55 +497,70 @@ class GitHubLazy:
 
     # ----------------------------------------------------------------------
     def pull(self, evt: Optional[widgets.Button] = None) -> None:
-        """
-        Pulls the latest changes from the remote repository.
+        """Fetch the most recent changes from the remote repository and merge them with the local branch.
+
+        This will update the local copy of the repository with any changes that have been made remotely.
 
         Parameters
         ----------
         evt : Optional[widgets.Button], optional
-            The button event that triggers this method (default is None).
+            The button event that triggers the pull operation. If the method
+            is called without an associated event, it's assumed to be a manual call.
+            Defaults to None.
 
+        Examples
+        --------
+        >>> github_lazy = GitHubLazy()
+        >>> github_lazy.pull()  # Pulls changes without a button event.
         """
+
         self.run_command('git config pull.rebase true', silent=True)
         self.run_command("git pull", path=REPOSITORY_PATH)
 
     # ----------------------------------------------------------------------
     def status(self, evt: Optional[widgets.Button] = None) -> None:
-        """
-        Checks the current status of the local repository.
+        """Checks the current status of the local Git repository.
+
+        This method displays the current status of files in the local repository,
+        indicating if files are staged, unstaged, or untracked, and if the branch is ahead,
+        behind, or has diverged from the remote branch it tracks.
 
         Parameters
         ----------
         evt : Optional[widgets.Button], optional
-            The button event that triggers this method (default is None).
+            The button event that triggers the status check. If the method is
+            called without an associated event, it's assumed to be a manual call.
+            Default is None.
 
         """
+
         self.run_command("git status", path=REPOSITORY_PATH)
 
     # ----------------------------------------------------------------------
     def push(self, evt: Optional[widgets.Button] = None) -> None:
-        """
-        Pushes local commits to the remote repository.
+        """Pushes local commits to the remote repository.
+
+        This method will push all committed changes in the local repository to the remote repository defined in the repository's Git configuration.
 
         Parameters
         ----------
         evt : Optional[widgets.Button], optional
-            The button event that triggers this method (default is None).
-
+            The button event that triggers this method. If the method is called programmatically without a button event, this argument should be None. Default is None.
         """
+
         self.run_command("git push", path=REPOSITORY_PATH)
 
     # ----------------------------------------------------------------------
     def copy_workflow(self, workflow: Path) -> None:
-        """
-        Copies the specified GitHub Actions workflow file to the repository's workflow directory.
+        """Copies the specified GitHub Actions workflow file to the repository's workflow directory.
 
         Parameters
         ----------
         workflow : Path
-            Path object representing the workflow file to be copied.
+            The Path object representing the workflow file to be copied to the repository's workflow directory.
 
         """
+
         os.makedirs(WORKFLOW_DIR, exist_ok=True)
         workflow_docs_dst = REPOSITORY_PATH / '.github' / 'workflows' / workflow.name
         if workflow_docs_dst.exists():
@@ -381,12 +571,17 @@ class GitHubLazy:
 
 # ----------------------------------------------------------------------
 def delete_secrets() -> None:
-    """
-    Removes saved GitHub secrets from storage.
+    """Removes saved GitHub secrets from storage.
 
-    This method deletes the saved GitHub Personal Access Token, GitHub
-    username, and GitHub email address from secure credential storage.
+    This function clears out the GitHub Personal Access Token (PAT), GitHub username,
+    and GitHub email address stored securely, ensuring these sensitive details are no longer retained in the system.
+
+    Raises
+    ------
+    KeyError
+        If a secret key does not exist in the storage when attempted to be deleted.
     """
+
     delete_secret('GITHUB_PAT')
     delete_secret('GITHUB_NAME')
     delete_secret('GITHUB_EMAIL')
@@ -394,15 +589,16 @@ def delete_secrets() -> None:
 
 # ----------------------------------------------------------------------
 def __lab__() -> widgets.GridspecLayout:
-    """
-    Creates and displays a GitHub management interface using ipywidgets.
+    """Creates and displays a GitHub management interface using ipywidgets.
 
     This function initializes the GitHubLazy class and arranges its components into a GridspecLayout for display.
 
-    Returns:
-        widgets.GridspecLayout: A grid layout containing the GitHubLazy interface components.
-    """
+    Returns
+    -------
+    widgets.GridspecLayout
+        A grid layout containing the GitHubLazy interface components.
 
+    """
     lab = GitHubLazy()
 
     # Define the layout components

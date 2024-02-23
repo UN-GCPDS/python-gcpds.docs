@@ -1,5 +1,3 @@
-docs package
-============
 
 .. automodule:: docs
    :members:
