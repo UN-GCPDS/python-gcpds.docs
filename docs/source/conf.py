@@ -48,3 +48,24 @@ dunderlab_code_reference = True
 
 autodoc_mock_imports = ["ipywidgets", "IPython", "ipython_secrets"]
 # add_module_names = False
+
+dunderlab_custom_index = f"""
+.. toctree::
+   :glob:
+   :maxdepth: 2
+   :name: mastertoc3
+   :caption: Submodule 1
+
+   notebooks/set_up/*
+
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+   :name: mastertoc3
+   :caption: Submodule 2
+
+   notebooks/best_practices/*
+    """
+
+
