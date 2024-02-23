@@ -3,10 +3,11 @@ GCPDS - Documentation Guide
 
 Welcome to the “GCPDS - Documentation Guide”. This guide serves as a
 comprehensive resource for setting up, configuring, and maintaining the
-documentation of projects under the General Computational Perception and
-Decision Systems (GCPDS) initiative. Our goal is to standardize the
-process of documentation across various modules and projects to enhance
-clarity, accessibility, and ease of use.
+documentation of projects under the **Grupo de Control y Procesamiento
+Digital de Señales (**\ `GCPDS <https://github.com/UN-GCPDS>`__\ **)**
+initiative. Our goal is to standardize the process of documentation
+across various modules and projects to enhance clarity, accessibility,
+and ease of use.
 
 The guide outlines a series of steps and best practices aimed at
 ensuring a seamless integration of Python modules with version control
@@ -17,16 +18,17 @@ development and the long-term success of the project.
 
 We cover everything from the initial setup of a GitHub repository,
 including naming conventions and configuration, to the integration with
-Read the Docs for automated documentation generation. Additionally, we
-discuss security practices, such as handling sensitive data through
-repository secrets and access tokens, to ensure the integrity and
-confidentiality of the project.
+`Read the Docs <https://readthedocs.org/>`__ for automated documentation
+generation. Additionally, we discuss security practices, such as
+handling sensitive data through repository secrets and access tokens, to
+ensure the integrity and confidentiality of the project.
 
 Each section of this guide is designed to walk you through the necessary
 steps to achieve an efficient and secure workflow. By adhering to these
 guidelines, the GCPDS community can contribute to a robust and
-sustainable ecosystem for research and development in computational
-perception and decision systems.
+sustainable ecosystem for research and development in digital signal
+processing and control. For more Python modules, visit
+`PyPi <https://pypi.org/search/?q=GCPDS>`__.
 
 Introduction to Setting Up and Integrating a Python Module Repository
 ---------------------------------------------------------------------
