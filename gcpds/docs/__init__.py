@@ -44,7 +44,7 @@ except:
     REPOSITORY_PATH: Path = Path('.').joinpath('my_repository').resolve()
 
 WORKFLOW_DIR = REPOSITORY_PATH / '.github' / 'workflows'
-CURRENT_DIR = Path(__file__) / 'workflows'
+CURRENT_DIR = Path(__file__).parent / 'workflows'
 
 
 ########################################################################
@@ -371,6 +371,8 @@ class GitHubLazy:
                                                  layout=widgets.Layout(justify_content='flex-start', width='100%'))
 
         yml_files = []
+        print(CURRENT_DIR)
+        print(CURRENT_DIR.glob('*.yml'))
         for yml_file in CURRENT_DIR.glob('*.yml'):
             checkbox = widgets.Checkbox(value=(WORKFLOW_DIR / yml_file.name).exists(),
                                         description=yml_file.name,
