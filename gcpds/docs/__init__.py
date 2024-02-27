@@ -44,7 +44,7 @@ except:
     REPOSITORY_PATH: Path = Path('.').joinpath('my_repository').resolve()
 
 WORKFLOW_DIR = REPOSITORY_PATH / '.github' / 'workflows'
-CURRENT_DIR = Path(__file__).parent
+CURRENT_DIR = Path(__file__) / 'workflows'
 
 
 ########################################################################
