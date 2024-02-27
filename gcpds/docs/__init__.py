@@ -371,8 +371,6 @@ class GitHubLazy:
                                                  layout=widgets.Layout(justify_content='flex-start', width='100%'))
 
         yml_files = []
-        print(CURRENT_DIR)
-        print(CURRENT_DIR.glob('*.yml'))
         for yml_file in CURRENT_DIR.glob('*.yml'):
             checkbox = widgets.Checkbox(value=(WORKFLOW_DIR / yml_file.name).exists(),
                                         description=yml_file.name,
@@ -616,13 +614,13 @@ def __lab__() -> widgets.GridspecLayout:
             lab.github_button_layout,
         ])
 
-    if hasattr(lab, 'webhooks_title'):
-        layouts.append(lab.webhooks_title)
+        if hasattr(lab, 'webhooks_title'):
+            layouts.append(lab.webhooks_title)
 
-    if hasattr(lab, 'right_button_layout'):
-        layouts.append(lab.right_button_layout)
+        if hasattr(lab, 'right_button_layout'):
+            layouts.append(lab.right_button_layout)
 
-    layouts.append(lab.logger)
+        layouts.append(lab.logger)
 
     # Apply CSS styles to the logger
     display(HTML(
